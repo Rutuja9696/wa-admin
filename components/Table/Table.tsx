@@ -1,13 +1,15 @@
 "use client";
 
 import "./Table.css";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Row from "@/components/Row/Row";
 import type { UserGroup } from "@/types/users";
 import {
   GROUPS_TABLE_COLUMNS,
   type GroupsTableColumnId,
 } from "@/types/users";
+
+const SEARCH_DEBOUNCE_MS = 500;
 
 interface TableProps {
   groups: UserGroup[];
@@ -25,14 +27,22 @@ const COLUMN_LABELS: Record<GroupsTableColumnId, string> = {
 
 export default function GroupsTable({ groups, selectedGroup, onSelectGroup }: TableProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [columnDropdownOpen, setColumnDropdownOpen] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState<Set<GroupsTableColumnId>>(
     () => new Set(GROUPS_TABLE_COLUMNS)
   );
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, SEARCH_DEBOUNCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [searchQuery]);
+
   const filteredGroups = useMemo(() => {
-    if (!searchQuery.trim()) return groups;
-    const q = searchQuery.toLowerCase().trim();
+    if (!debouncedSearchQuery.trim()) return groups;
+    const q = debouncedSearchQuery.toLowerCase().trim();
     return groups.filter(
       (g) =>
         g.groupName?.toLowerCase().includes(q) ||
@@ -41,7 +51,7 @@ export default function GroupsTable({ groups, selectedGroup, onSelectGroup }: Ta
         g.members?.toLowerCase().includes(q) ||
         g.lastActive?.toLowerCase().includes(q)
     );
-  }, [groups, searchQuery]);
+  }, [groups, debouncedSearchQuery]);
 
   const toggleColumn = (id: GroupsTableColumnId) => {
     setVisibleColumns((prev) => {
