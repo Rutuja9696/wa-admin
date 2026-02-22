@@ -66,10 +66,22 @@
 }
 
 .Sidebar__nav-item-wrap .Sidebar__nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     height: 32px;
     width: 32px;
-    border: 1px solid currentColor;
     border-radius: 6px;
+}
+
+.Sidebar__nav-item-wrap .Sidebar__nav-icon:empty {
+    border: 1px solid currentColor;
+}
+
+.Sidebar__nav-icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
 }
 
 .Sidebar__nav-item {
