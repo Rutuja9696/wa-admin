@@ -1,0 +1,92 @@
+.Sidebar {
+    color: #212121;
+    background: #fff;
+    border-right: 2px solid #dde3ee;
+    padding: 1rem;
+}
+
+.Sidebar__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background-color: #54c77e;
+    color: #fff;
+    font-weight: 700;
+}
+
+.Sidebar__badge {
+    font-size: 0.75rem;
+    background-color: #54c77e;
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    height: 1.25rem;
+}
+
+.Sidebar__project-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Sidebar__secondary-text {
+    color: #647696;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Sidebar__nav-item-wrap {
+    height: 40px;
+    line-height: 40px;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    padding-left: 8px;
+    margin-bottom: 6px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.Sidebar__nav-item-wrap:hover {
+    background-color: #f0f4f8;
+    color: #111827;
+}
+
+.Sidebar__nav-item-wrap.Sidebar__nav-item-wrap--selected {
+    background-color: #54c77e;
+    color: #fff;
+}
+
+.Sidebar__nav-item-wrap.Sidebar__nav-item-wrap--selected .Sidebar__nav-item,
+.Sidebar__nav-item-wrap.Sidebar__nav-item-wrap--selected .Sidebar__nav-icon {
+    color: #fff;
+}
+
+.Sidebar__nav-item-wrap .Sidebar__nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 6px;
+}
+
+.Sidebar__nav-item-wrap .Sidebar__nav-icon:empty {
+    border: 1px solid currentColor;
+}
+
+.Sidebar__nav-icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.Sidebar__nav-item {
+    color: #475161;
+    height: 40px;
+    font-size: 16px;
+    align-items: center;
+}

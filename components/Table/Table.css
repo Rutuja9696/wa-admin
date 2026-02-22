@@ -1,0 +1,157 @@
+.Table {
+  border-right: 1px solid #e5e7eb;
+  background-color: #fff;
+}
+
+.Table__toolbar {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.Table__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: lowercase;
+}
+
+.Table__title::first-letter {
+  text-transform: uppercase;
+}
+
+.Table__search-input {
+  font-size: 0.875rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+}
+
+.Table__search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(84, 199, 126, 0.5);
+  border-color: #54c77e;
+}
+
+.Table__filter-btn {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  transition: background-color 0.15s ease;
+}
+
+.Table__filter-btn:hover {
+  background-color: #f9fafb;
+}
+
+.Table__dropdown-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.Table__dropdown {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  z-index: 20;
+  right: 241px;
+  top: 125px;
+  position: absolute;
+}
+
+.Table__dropdown-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.Table__dropdown-option {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.Table__dropdown-option:hover {
+  background-color: #f9fafb;
+}
+
+.Table__dropdown-option input {
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  color: #54c77e;
+}
+
+.Table__dropdown-option input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(84, 199, 126, 0.5);
+}
+
+.Table__dropdown-option span {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.Table__bulk-btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #54c77e;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+
+.Table__bulk-btn:hover {
+  background-color: #45b369;
+}
+
+.Table__actions-btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+
+.Table__actions-btn:hover {
+  background-color: #f9fafb;
+}
+
+.Table__thead {
+  background-color: #f9fafb;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.Table__th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.Table__empty-cell {
+  color: #6b7280;
+  text-align: center;
+}
+
+.Table__footer {
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.Table__checkbox {
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  color: #54c77e;
+}
+
+.Table__checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(84, 199, 126, 0.5);
+}
