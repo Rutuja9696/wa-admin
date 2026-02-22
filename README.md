@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# wa-admin
 
-## Getting Started
+Admin UI for managing WhatsApp groups: view groups by phone number, search, filter columns, and view group details.
 
-First, run the development server:
+**Live demo:** [https://wa-admin-six.vercel.app/](https://wa-admin-six.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup (run locally)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repo and install dependencies**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone <your-repo-url>
+   cd wa-admin
+   npm install
+   ```
 
-## Learn More
+2. **Configure environment variables**
 
-To learn more about Next.js, take a look at the following resources:
+   Copy the example env file and add your values:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cp .env.example .env
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   Edit `.env` and set the required variables (see [Required environment variables](#required-environment-variables) below).
 
-## Deploy on Vercel
+3. **Start the dev server**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Required environment variables
+
+Create a `.env` file in the project root (use `.env.example` as a template).
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL (e.g. `https://xxxxx.supabase.co`) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous/public (anon) key for client-side access |
+
+Get both from [Supabase](https://supabase.com) → your project → **Settings** → **API**.
+
+---
+
+## Additional notes & assumptions
+
+- **Data source:** The app reads from a Supabase table `users_data` with a row where `projectname = 'Periskope'`. The `data` column is expected to be JSON matching the `UsersData` shape (e.g. `{ superUser, users: [{ userId, userName, userEmail, phoneNumber, groups, ... }] }`).
+- **Groups tab:** Only the **Groups** tab shows the table and side panel. Other sidebar items (Dashboard, Chats, Contacts, etc.) show an “under construction” message.
+- **Phone dropdown:** The header phone selector lists users from the fetched data; switching the number filters the table to that user’s groups.
+- **Build:** `npm run build` then `npm run start` for production. For Vercel, set **Root Directory** to the folder that contains `package.json` if the repo root is different.
