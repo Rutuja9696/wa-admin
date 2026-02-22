@@ -1,0 +1,91 @@
+.Row {
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.Row:hover {
+  background-color: #f9fafb;
+}
+
+.Row.Row--selected {
+  background-color: #f0fdf4;
+}
+
+.Row.Row--selected:hover {
+  background-color: #dcfce7;
+}
+
+.Row__checkbox {
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  color: #54c77e;
+}
+
+.Row__checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(84, 199, 126, 0.5);
+}
+
+.Row__avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.Row__name {
+  font-weight: 500;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Row__badge {
+  background-color: #54c77e;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  min-width: 1.25rem;
+  height: 1.25rem;
+}
+
+.Row__tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.Row__muted {
+  color: #9ca3af;
+}
+
+.Row__muted--dark {
+  color: #6b7280;
+}
+
+.Row__labels {
+  font-size: 0.875rem;
+  color: #4b5563;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 120px;
+}
+
+.Row__cell-text {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.Row__cell-text--light {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
