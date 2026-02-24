@@ -1,51 +1,23 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useTab } from "@/context/TabContext";
+import { useUsersData } from "@/hooks";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import Header from "@/components/Header/Header";
 import Table from "@/components/Table/Table";
 import SidePanel from "@/components/SidePanel/SidePanel";
-import Header from "@/components/Header/Header";
-import { useTab } from "@/context/TabContext";
-import { supabase } from "@/lib/supabase";
-import type { UsersData, User, UserGroup } from "@/types/users";
 
 export default function Home() {
   const { selectedTab } = useTab();
-  const [usersData, setUsersData] = useState<UsersData | null>(null);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [selectedGroup, setSelectedGroup] = useState<UserGroup | null>(null);
-
-  useEffect(() => {
-    const fetchUsersData = async () => {
-      const { data, error } = await supabase
-        .from("users_data")
-        .select("data")
-        .eq("projectname", "Periskope")
-        .single();
-
-      if (error) {
-        console.error("Error fetching users_data:", error);
-        return;
-      }
-
-      if (data?.data) {
-        const payload = data.data as UsersData;
-        setUsersData(payload);
-        const firstUser = payload.users?.[0] ?? null;
-        setSelectedUser(firstUser);
-        setSelectedGroup(null);
-      }
-    };
-
-    fetchUsersData();
-  }, []);
-
-  const handleSelectUser = useCallback((user: User) => {
-    setSelectedUser(user);
-    setSelectedGroup(null);
-  }, []);
-
-  const users = usersData?.users ?? [];
+  const {
+    usersData,
+    users,
+    groups,
+    selectedUser,
+    selectedGroup,
+    selectUser,
+    selectGroup,
+  } = useUsersData();
 
   return (
     <div className="flex h-full">
@@ -54,20 +26,20 @@ export default function Home() {
         <Header
           users={users}
           selectedUser={selectedUser}
-          onSelectUser={handleSelectUser}
+          onSelectUser={selectUser}
         />
         <div className="flex flex-1 min-h-0">
           {selectedTab === "Groups" ? (
             <>
               <Table
-                groups={selectedUser?.groups ?? []}
+                groups={groups}
                 selectedGroup={selectedGroup}
-                onSelectGroup={setSelectedGroup}
+                onSelectGroup={selectGroup}
               />
               <SidePanel group={selectedGroup} />
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center bg-gray-50">
+            <div className="flex flex-1 items-center justify-center bg-gray-100">
               <p className="text-gray-500 text-lg">This page is under construction.</p>
             </div>
           )}

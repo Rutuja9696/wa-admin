@@ -1,0 +1,39 @@
+.Pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  min-width: 0;
+  background-color: var(--color-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+}
+
+.Pill__dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.Pill__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 4.5rem;
+  min-width: 0;
+}
+
+.Pill--overflow .Pill__text {
+  max-width: none;
+}
+
+.Pill--overflow {
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-muted);
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+}

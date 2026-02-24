@@ -1,8 +1,14 @@
 "use client";
 
 import "./Row.css";
+import Chip from "@/components/Chip/Chip";
+import Pill from "@/components/Pill/Pill";
+import { formatLastActive } from "@/lib/formatDate";
+import { LABEL_COLORS, normalizeLabels } from "@/lib/labels";
 import type { UserGroup } from "@/types/users";
 import type { GroupsTableColumnId } from "@/types/users";
+
+const MAX_PILLS_IN_ROW = 2;
 
 interface RowProps {
   group: UserGroup;
@@ -12,6 +18,8 @@ interface RowProps {
 }
 
 export default function GroupRow({ group, selected, visibleColumns, onClick }: RowProps) {
+  const labelItems = normalizeLabels(group.labels);
+
   return (
     <tr
       onClick={onClick}
@@ -26,7 +34,7 @@ export default function GroupRow({ group, selected, visibleColumns, onClick }: R
       }}
       aria-selected={selected}
     >
-      <td className="px-4 py-3 w-10 align-middle">
+      <td>
         <input
           type="checkbox"
           checked={selected}
@@ -37,14 +45,14 @@ export default function GroupRow({ group, selected, visibleColumns, onClick }: R
         />
       </td>
       {visibleColumns.has("groupName") && (
-        <td className="px-4 py-3 align-middle">
-          <div className="flex items-center gap-2">
-            <div className="Row__avatar flex items-center justify-center shrink-0">
+        <td>
+          <div className="Row__group-name">
+            <div className="Row__avatar">
               {(group.groupName ?? "?")[0]}
             </div>
             <span className="Row__name">{group.groupName}</span>
             {group.unreadMsg != null && group.unreadMsg !== "0" && (
-              <span className="Row__badge shrink-0 inline-flex items-center justify-center px-1.5">
+              <span className={`Row__badge ${Number(group.unreadMsg) > 0 ? "Row__badge--green" : "Row__badge--grey"}`}>
                 {group.unreadMsg}
               </span>
             )}
@@ -52,30 +60,39 @@ export default function GroupRow({ group, selected, visibleColumns, onClick }: R
         </td>
       )}
       {visibleColumns.has("project") && (
-        <td className="px-4 py-3 align-middle">
+        <td>
           {group.project ? (
-            <span className="Row__tag inline-block px-2 py-0.5">#{group.project}</span>
+            <Chip label={group.project} />
           ) : (
             <span className="Row__muted">—</span>
           )}
         </td>
       )}
       {visibleColumns.has("labels") && (
-        <td className="px-4 py-3 align-middle">
-          {group.labels ? (
-            <span className="Row__labels inline-block" title={group.labels}>
-              {group.labels}
-            </span>
+        <td className="Row__cell--labels">
+          {labelItems.length > 0 ? (
+            <div className="Row__labels-wrap">
+              {labelItems.slice(0, MAX_PILLS_IN_ROW).map((label, i) => (
+                <Pill
+                  key={i}
+                  label={label}
+                  color={LABEL_COLORS[i % LABEL_COLORS.length]}
+                />
+              ))}
+              {labelItems.length > MAX_PILLS_IN_ROW && (
+                <Pill label={`+${labelItems.length - MAX_PILLS_IN_ROW}`} overflow />
+              )}
+            </div>
           ) : (
             <span className="Row__muted">—</span>
           )}
         </td>
       )}
       {visibleColumns.has("members") && (
-        <td className="px-4 py-3 align-middle Row__cell-text">{group.members ?? "—"}</td>
+        <td className="Row__cell-text">{group.members ?? "—"}</td>
       )}
       {visibleColumns.has("lastActive") && (
-        <td className="px-4 py-3 align-middle Row__cell-text--light">{group.lastActive ?? "—"}</td>
+        <td className="Row__cell-text--light">{formatLastActive(group.lastActive)}</td>
       )}
     </tr>
   );

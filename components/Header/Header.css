@@ -1,42 +1,83 @@
 .Header {
-  background-color: #fff;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .Header__title {
   font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 400;
+  color: var(--color-icon);
   text-transform: lowercase;
 }
 
-.Header__title::first-letter {
-  text-transform: uppercase;
+.Header__groups-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
 }
 
 .Header__docs-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #fff;
-  background-color: #54c77e;
-  border-radius: 0.5rem;
+  color: var(--color-icon);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
   transition: background-color 0.15s ease;
 }
 
 .Header__docs-link:hover {
-  background-color: #45b369;
+  background-color: var(--color-bg-subtle);
+}
+
+.Header__docs-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.Header__phone-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-status-dot);
+  box-shadow: 0 0 0 2px rgba(23, 128, 62, 0.4), 0 0 8px 2px rgba(23, 128, 62, 0.35);
+  flex-shrink: 0;
+}
+
+.Header__phone-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--color-status-dot);
+  filter: blur(6px);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.Header__phone-number {
+  color: var(--color-icon);
 }
 
 .Header__phone-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
   transition: background-color 0.15s ease;
 }
 
 .Header__phone-btn:hover {
-  background-color: #f9fafb;
+  background-color: var(--color-bg-subtle);
 }
 
 .Header__phone-btn svg {
@@ -48,38 +89,59 @@
 }
 
 .Header__dropdown {
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: var(--color-bg);
   z-index: 50;
 }
 
 .Header__dropdown-empty {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .Header__option {
   font-size: 0.875rem;
-  color: #374151;
+  color: var(--color-text-secondary);
   transition: background-color 0.15s ease;
 }
 
 .Header__option:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-bg-muted);
 }
 
 .Header__option.Header__option--selected {
-  background-color: #f0fdf4;
-  color: #166534;
+  background-color: var(--color-selected-bg);
+  color: var(--color-primary-hover);
   font-weight: 500;
 }
 
 .Header__option-sub {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--color-text-muted);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.Header__notification-btn {
+  border: 1px solid var(--color-border-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.Header__notification-btn:hover {
+  background-color: var(--color-bg-muted);
+}
+
+.Header__notification-icon {
+  width: 1.25rem;
+  height: 1.25rem;
 }

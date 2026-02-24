@@ -1,10 +1,14 @@
+/** Label item as stored in DB (object with display field) or plain string */
+export type LabelItem = string | { label?: string; name?: string; value?: string; title?: string };
+
 export interface UserGroup {
   groupId: string;
   groupName: string;
   groupImage?: string;
   unreadMsg?: string;
+  hasWarning?: boolean;
   project?: string;
-  labels?: string;
+  labels?: string | string[] | LabelItem[];
   members?: string;
   lastActive?: string;
 }

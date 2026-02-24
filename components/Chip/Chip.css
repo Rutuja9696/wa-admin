@@ -1,0 +1,22 @@
+.Chip {
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+}
+
+.Chip--blue {
+  background-color: var(--color-chip-blue-bg);
+  color: var(--color-chip-blue-text);
+}
+
+.Chip--orange {
+  background-color: var(--color-chip-orange-bg);
+  color: var(--color-chip-orange-text);
+}
+
+.Chip--grey {
+  background-color: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+}

@@ -1,92 +1,48 @@
 "use client";
 
-import "./Header.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useTab } from "@/context/TabContext";
+import { useClickOutside } from "@/hooks";
+import { HeaderView } from "./HeaderView";
 import type { User } from "@/types/users";
 
-interface HeaderProps {
+interface HeaderContainerProps {
   users: User[];
   selectedUser: User | null;
   onSelectUser: (user: User) => void;
 }
 
-export default function Header({ users, selectedUser, onSelectUser }: HeaderProps) {
+const GROUPS_ICON_PATH =
+  "M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z";
+
+export default function Header({ users, selectedUser, onSelectUser }: HeaderContainerProps) {
   const { selectedTab } = useTab();
   const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setPhoneDropdownOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(dropdownRef, phoneDropdownOpen, useCallback(() => setPhoneDropdownOpen(false), []));
 
-  const displayPhone = selectedUser?.phoneNumber ?? (users[0]?.phoneNumber ?? "Select number");
+  const displayPhone = selectedUser?.phoneNumber ?? users[0]?.phoneNumber ?? "Select number";
+
+  const handleSelectUser = useCallback(
+    (user: User) => {
+      onSelectUser(user);
+      setPhoneDropdownOpen(false);
+    },
+    [onSelectUser]
+  );
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 Header">
-      <div className="flex flex-col">
-        <h1 className="Header__title">{selectedTab}</h1>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <a href={"https://github.com/Rutuja9696/wa-admin"} target="_blank" className="px-4 py-2 Header__docs-link">
-          Docs
-        </a>
-
-        <div className="relative" ref={dropdownRef}>
-          <button
-            type="button"
-            onClick={() => setPhoneDropdownOpen((prev) => !prev)}
-            className="flex items-center gap-2 px-4 py-2 Header__phone-btn"
-            aria-expanded={phoneDropdownOpen}
-            aria-haspopup="listbox"
-            aria-label="Select phone number"
-          >
-            <span>{displayPhone}</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {phoneDropdownOpen && (
-            <ul
-              role="listbox"
-              className="absolute right-0 mt-1 w-56 py-1 Header__dropdown max-h-60 overflow-auto"
-              aria-label="Phone numbers"
-            >
-              {users.length === 0 ? (
-                <li className="px-4 py-2 Header__dropdown-empty">No numbers</li>
-              ) : (
-                users.map((user) => (
-                  <li key={user.userId} role="option" aria-selected={selectedUser?.userId === user.userId}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onSelectUser(user);
-                        setPhoneDropdownOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 Header__option ${
-                        selectedUser?.userId === user.userId ? "Header__option--selected" : ""
-                      }`}
-                    >
-                      {user.phoneNumber}
-                      {user.userName ? (
-                        <span className="block Header__option-sub">{user.userName}</span>
-                      ) : null}
-                    </button>
-                  </li>
-                ))
-              )}
-            </ul>
-          )}
-        </div>
-      </div>
-    </div>
+    <HeaderView
+      title={selectedTab}
+      groupsIconPath={GROUPS_ICON_PATH}
+      displayPhone={displayPhone}
+      isPhoneDropdownOpen={phoneDropdownOpen}
+      onPhoneDropdownToggle={() => setPhoneDropdownOpen((p) => !p)}
+      dropdownRef={dropdownRef}
+      users={users}
+      selectedUser={selectedUser}
+      onSelectUser={handleSelectUser}
+    />
   );
 }

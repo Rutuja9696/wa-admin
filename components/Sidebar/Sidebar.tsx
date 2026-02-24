@@ -1,22 +1,34 @@
 import "./Sidebar.css";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { useTab } from "@/context/TabContext";
 import type { SuperUser } from "@/types/users";
+import periskopeLogo from "@/components/Icons/periskopeLogo.png";
+import whatsappFill from "@/components/Icons/whatsappFill.jpg";
 
-const iconSvg = (path: string, viewBox = "0 0 24 24") => (
-  <svg className="Sidebar__nav-icon-svg" viewBox={viewBox} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d={path} />
+const iconSvgFilled = (path: string, viewBox = "0 0 24 24") => (
+  <svg className="Sidebar__nav-icon-svg" viewBox={viewBox} fill="currentColor" aria-hidden>
+    <path fillRule="evenodd" clipRule="evenodd" d={path} />
+  </svg>
+);
+
+const ChatsIcon = () => (
+  <svg className="Sidebar__nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" />
+    <circle cx="8" cy="13" r="1.25" fill="#fff" stroke="currentColor" strokeWidth="0.5" />
+    <circle cx="12" cy="13" r="1.25" fill="#fff" stroke="currentColor" strokeWidth="0.5" />
+    <circle cx="16" cy="13" r="1.25" fill="#fff" stroke="currentColor" strokeWidth="0.5" />
   </svg>
 );
 
 const NAV_ICONS: Record<string, ReactNode> = {
-  Dashboard: iconSvg("M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"),
-  Chats: iconSvg("M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"),
-  Groups: iconSvg("M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"),
-  Contacts: iconSvg("M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"),
-  Logs: iconSvg("M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"),
-  Files: iconSvg("M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"),
-  Settings: iconSvg("M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"),
+  Dashboard: iconSvgFilled("M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"),
+  Chats: <ChatsIcon />,
+  Groups: iconSvgFilled("M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"),
+  Contacts: iconSvgFilled("M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM6 8h2v2H6V8zm6 0h8v2h-8V8zm-6 4h2v2H6v-2zm6 0h8v2h-8v-2zm-6 4h2v2H6v-2zm6 0h4v2h-4v-2z"),
+  Logs: iconSvgFilled("M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-11 8l1.5-1.5 2.5 2.5 5-5 1.5 1.5-6.5 6.5-4-4zm0-5l1.5-1.5 2.5 2.5 5-5 1.5 1.5-6.5 6.5-4-4z"),
+  Files: iconSvgFilled("M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"),
+  Settings: iconSvgFilled("M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"),
 };
 
 interface NavItemConfig {
@@ -46,16 +58,30 @@ export default function Sidebar({ superUserDetails }: SidebarProps) {
   return (
     <div className="w-60 Sidebar flex flex-col">
       <div className="flex mb-6">
-        <div className="mr-2 Sidebar__logo flex items-center justify-center shrink-0">
-          P
+        <div className="mr-2 Sidebar__logo flex items-center justify-center shrink-0 overflow-hidden">
+          <Image src={periskopeLogo} alt="Periskope" width={40} height={40} className="object-contain" />
         </div>
-        <div className="min-w-0">
-          <h1 className="mb-0 Sidebar__project-name">
-            {superUserDetails?.projectName ?? "Loading..."}
-          </h1>
-          <h2 className="Sidebar__secondary-text mb-6">
-            {superUserDetails?.email ?? "Loading..."}
-          </h2>
+        <div className="min-w-0 flex-1 flex items-start justify-between gap-1">
+          <div className="min-w-0">
+            <h1 className="mb-0 Sidebar__project-name">
+              {superUserDetails?.projectName ?? "Periskope"}
+            </h1>
+            <h2 className="Sidebar__secondary-text mb-6">
+              {superUserDetails?.email ?? "Loading..."}
+            </h2>
+          </div>
+          <button
+            type="button"
+            className="Sidebar__periskope-chevrons shrink-0 mt-0.5 p-1 rounded hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/50"
+            aria-label="Account or project menu"
+          >
+            <svg className="Sidebar__periskope-chevron" viewBox="0 0 24 24" fill="#4C5564" aria-hidden>
+              <path d="M7 14l5-5 5 5H7z" />
+            </svg>
+            <svg className="Sidebar__periskope-chevron Sidebar__periskope-chevron--down" viewBox="0 0 24 24" fill="#4C5564" aria-hidden>
+              <path d="M7 10l5 5 5-5H7z" />
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -91,13 +117,15 @@ export default function Sidebar({ superUserDetails }: SidebarProps) {
         })}
       </nav>
 
-      <div className="pt-4 border-t border-gray-200">
+      <div className="pt-4">
         <a
           href="#"
           className="Sidebar__nav-item-wrap flex items-center gap-3 text-sm"
           aria-label="Help and Support"
         >
-          <span className="Sidebar__nav-icon shrink-0" aria-hidden />
+          <span className="Sidebar__nav-icon shrink-0 flex items-center justify-center overflow-hidden" aria-hidden>
+            <Image src={whatsappFill} alt="" width={32} height={32} className="object-contain" />
+          </span>
           <span className="Sidebar__nav-item">Help & Support</span>
         </a>
       </div>
